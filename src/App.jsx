@@ -5,6 +5,8 @@ import {firebase} from "./firebase"
 function App() {
   
   const [tareas, setTareas] = React.useState([])
+  const [tarea, setTarea] = React.useState('')
+
 
   React.useEffect(() => {
   
@@ -22,6 +24,16 @@ function App() {
       obtenerDatos()
   
   }, [])
+
+
+const agregar = async (e) => {
+    e.preventDefault()
+    if(!tarea.trim()){
+        console.log('sin texto')
+        return
+    }
+    console.log(tarea)
+}
 
   return (
 
@@ -51,6 +63,21 @@ function App() {
         </div>
         <div className="col-md-6">
             <h3>Formulario</h3>
+            <form onSubmit={agregar}>
+    <input 
+        type="text" 
+        className="form-control mb-2"
+        placeholder='Ingrese Tarea'
+        value={tarea}
+        onChange={e => setTarea(e.target.value)}
+    />
+    <button 
+        type='submit'
+        className="btn btn-dark btn-block btn-sm"
+    >
+        Agregar
+    </button>
+    </form>
         </div>
     </div>
 </div>
