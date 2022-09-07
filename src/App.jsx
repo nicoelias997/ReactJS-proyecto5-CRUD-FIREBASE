@@ -32,6 +32,24 @@ const agregar = async (e) => {
         console.log('sin texto')
         return
     }
+    try{
+      const dataBase = firebase.firestore()
+      const nuevaTarea = {
+        name: tarea,
+        fecha: Date.now()
+      }
+      const data = await dataBase.collection("tareas").add(nuevaTarea)
+      setTareas([
+        ...tareas,
+        {
+          ...nuevaTarea, id: data.id
+        }
+      ])
+      setTarea("")
+
+    } catch(error){
+      console.log(error)
+    }
     console.log(tarea)
 }
 
